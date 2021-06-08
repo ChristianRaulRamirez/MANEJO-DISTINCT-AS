@@ -1,0 +1,154 @@
+Ejercicio 1 : 
+Una empresa tiene registrados sus clientes en una tabla llamada "clientes".
+
+1- Elimine la tabla "clientes", si existe.
+
+2- Créela con la siguiente estructura:
+ create table clientes (
+  codigo int unsigned auto_increment,
+  nombre varchar(30) not null,
+  domicilio varchar(30),
+  ciudad varchar(20),
+  provincia varchar (20),
+  telefono varchar(11),
+  primary key(codigo)
+ );
+
+3- Ingrese algunos registros:
+ insert into clientes (nombre,domicilio,ciudad,provincia,telefono)
+  values ('Lopez Marcos', 'Colon 111', 'Córdoba','Cordoba','null');
+ insert into clientes (nombre,domicilio,ciudad,provincia,telefono)
+  values ('Perez Ana', 'San Martin 222', 'Cruz del Eje','Cordoba','4578585');
+ insert into clientes (nombre,domicilio,ciudad,provincia,telefono)
+  values ('Garcia Juan', 'Rivadavia 333', 'Villa Maria','Cordoba','4578445');
+ insert into clientes (nombre,domicilio,ciudad,provincia,telefono)
+  values ('Perez Luis', 'Sarmiento 444', 'Rosario','Santa Fe',null);
+ insert into clientes (nombre,domicilio,ciudad,provincia,telefono) 
+  values ('Pereyra Lucas', 'San Martin 555', 'Cruz del Eje','Cordoba','4253685');
+ insert into clientes (nombre,domicilio,ciudad,provincia,telefono)
+  values ('Gomez Ines', 'San Martin 666', 'Santa Fe','Santa Fe','0345252525');
+ insert into clientes (nombre,domicilio,ciudad,provincia,telefono)
+  values ('Torres Fabiola', 'Alem 777', 'Villa del Rosario','Cordoba','4554455');
+ insert into clientes (nombre,domicilio,ciudad,provincia,telefono)
+  values ('Lopez Carlos', 'Irigoyen 888', 'Cruz del Eje','Cordoba',null);
+ insert into clientes (nombre,domicilio,ciudad,provincia,telefono)
+  values ('Ramos Betina', 'San Martin 999', 'Cordoba','Cordoba','4223366');
+ insert into clientes (nombre,domicilio,ciudad,provincia,telefono)
+  values ('Lopez Lucas', 'San Martin 1010', 'Posadas','Misiones','0457858745');
+
+4- Obtenga el total de los registros que no tienen valor nulo en los teléfonos y coloque un alias 
+para dicha columna . 
+select count(telefono) as 'con telefono'
+  from clientes;
+
+
+5- Muestre la cantidad de clientes que se apellidan "Perez" colocando un alias para dicha salida . 
+select count(*) as 'Perez'
+  from clientes
+  where nombre like '%Perez%' ;
+
+
+6- Obtenga la cantidad de ciudades DISTINTAS por provincia en las cuales hay clientes, coloque un alias . 
+ select provincia, count(distinct ciudad) as 'ciudades'
+  from clientes
+  group by provincia;
+
+--------------------------------------------------------------------------------------------------------------
+
+
+Ejercicio 2 (Problema propuesto): 
+Una academia de enseñanza dicta distintos cursos de informática. Los cursos se dictan por la mañana 
+o por la tarde, todos los días de lunes a viernes. La academia guarda los datos de los cursos en 
+una tabla llamada "cursos" en la cual almacena el código del curso, el tema, los días de la semana 
+que se dicta, el horario, por la mañana (AM) o por la tarde (PM), la cantidad de clases que incluye 
+cada curso (clases), la fecha de inicio y el costo del curso.
+
+1- Elimine la tabla "cursos", si existe.
+
+2- Cree la tabla "cursos" con la siguiente estructura:
+ create table cursos(
+  codigo tinyint unsigned auto_increment,
+  tema varchar(20) not null,
+  horario char(2) not null,
+  clases tinyint unsigned default 10,
+  fechainicio date,
+  costo decimal(5,2) unsigned,
+  primary key(codigo)
+ );
+
+3- Ingrese los siguientes registros:
+ insert into cursos (tema,horario,clases,fechainicio,costo)
+  values('PHP básico','AM',10,'2006-08-07',200);
+ insert into cursos (tema,horario,clases,fechainicio,costo)
+  values('PHP básico','PM',default,'2006-08-14',200);
+ insert into cursos (tema,horario,clases,fechainicio,costo)
+  values('PHP básico','AM',default,'2006-08-05',200);
+ insert into cursos (tema,horario,clases,fechainicio,costo)
+  values('PHP avanzado','AM',20,'2006-08-01',350);
+ insert into cursos (tema,horario,clases,fechainicio,costo)
+  values('JavaScript básico','PM',15,'2006-09-11',150);
+ insert into cursos (tema,horario,clases,fechainicio,costo)
+  values('Paginas web','PM',15,'2006-08-08',200);
+ insert into cursos (tema,horario,clases,fechainicio,costo)
+  values('Paginas web','AM',15,'2006-08-12',200);
+ insert into cursos (tema,horario,clases,fechainicio,costo)
+  values('Paginas web','AM',15,'2006-08-21',200);
+ insert into cursos (tema,horario,clases,fechainicio,costo)
+  values('HTML avanzado','AM',20,'2006-09-18',180);
+ insert into cursos (tema,horario,clases,fechainicio,costo)
+  values('HTML avanzado','PM',20,'2006-09-25',180);
+ insert into cursos (tema,horario,clases,fechainicio,costo)
+  values('JavaScript avanzado','PM',25,'2006-09-18',150);
+
+4- Obtenga la lista de temas de los cursos sin repetición:
+   select distinct tema from cursos;
+
+5- Seleccione los cursos donde el tema incluya "PHP", sin repetir horario ni tema:
+   select distinct horario,tema from cursos where tema like '%PHP%';
+
+6- Cuente la cantidad de cursos DISTINTOS agrupados por horario . 
+   select horario,count(distinct tema)  from cursos group by horario;
+
+
+--------------------------------------------------------------------------------------------------------------
+Ejercicio 3 : 
+Un consultorio médico en el cual trabajan varios médicos registra las consultas de los pacientes 
+en una tabla llamada "consultas".
+
+1- Elimine la tabla si existe.
+
+2- Cree la tabla con la siguiente estructura: 
+ create table consultas(
+  fechayhora datetime not null,
+  medico varchar(30) not null,
+  documento char(8) not null,
+  paciente varchar(30),
+  obrasocial varchar(30)
+ );
+
+4- Ingrese los siguientes registros:
+ insert into consultas values('2006-08-10 8:00','Perez','22333444','Juana Garcia','PAMI');
+ insert into consultas values('2006-08-10 10:00','Lopez','22333444','Juana Garcia','PAMI');
+ insert into consultas values('2006-08-10 8:30','Perez','23333444','Adela Gomez','PAMI');
+ insert into consultas values('2006-08-10 9:00','Perez','24333444','Juan Lopez','IPAM');
+ insert into consultas values('2006-08-10 10:00','Perez','25333444','Hector Juarez','OSDOP');
+ insert into consultas values('2006-08-10 8:30','Garcia','25333444','Ana Molina','PAMI');
+ insert into consultas values('2006-09-10 8:30','Garcia','25333444','Ana Molina','PAMI');
+
+5- Muestre las distintas obras sociales:
+ select distinct obrasocial from consultas;
+
+6- Muestre los nombres de los distintos pacientes:
+ select distinct paciente from consultas;
+
+
+7- Muestre la cantidad de distintas obras sociales:
+  select distinct obrasocial from consultas;
+
+8- Cuente la cantidad de médicos (SIN REPETIR) que tienen consultas agrupado por mes y día . 
+ select extract(month from fechayhora),extract(day from fechayhora),
+  count(distinct medico) from consultas
+  group by extract(month from fechayhora),extract(day from fechayhora);
+
+
+
